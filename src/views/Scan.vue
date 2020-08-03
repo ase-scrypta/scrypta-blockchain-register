@@ -2,7 +2,7 @@
   <div style="text-align:left; padding: 20px">
     <div v-if="isUnlocked">
       <h1>
-        Scan folder
+        Scannerizza utente
       </h1><span style="font-size:14px; font-weight:normal; margin-top:-40px">{{ $route.params.address }}</span><br><br>
       <div v-if="written.length > 0">
         <div class="columns is-multiline is-mobile">
@@ -12,18 +12,18 @@
                 <div class="media">
                   <div class="media-content">
                     <p v-if="file.data.message.title" class="title is-4">{{ file.data.message.title }}</p>
-                    <p v-if="!file.data.message.title" class="title is-4">Untitled</p>
+                    <p v-if="!file.data.message.title" class="title is-4">Nessun titolo</p>
                   </div>
                 </div>
                 <div class="content">
                   <b>Hash file:</b> {{ file.data.message.file.substr(0,6) }}...{{ file.data.message.file.substr(-6) }}<br>
-                  <b>Notarized at block</b> {{ file.block }}<br>
-                  <b>At</b> {{ file.date }}<br><br>
+                  <b>Notarizzato al blocco</b> {{ file.block }}<br>
+                  <b>Il</b> {{ file.date }}<br><br>
                   <a :href="file.link" v-if="!file.data.message.visibility || file.data.message.visibility === 'public'">
                     <b-button style="width:100%" type="is-info">DOWNLOAD</b-button>
                   </a>
-                  <b-button style="width:100%"  v-if="file.data.message.visibility && file.data.message.visibility === 'encrypted'" v-on:click="decrypt(file.uuid)" type="is-info">DECRYPT AND DOWNLOAD</b-button>
-                  <b-button style="width:100%" v-if="!isInvalidating" v-on:click="invalidate(file.uuid)" type="is-danger">INVALIDATE</b-button>
+                  <b-button style="width:100%"  v-if="file.data.message.visibility && file.data.message.visibility === 'encrypted'" v-on:click="decrypt(file.uuid)" type="is-info">DOWNLOAD</b-button>
+                  <b-button style="width:100%" v-if="!isInvalidating" v-on:click="invalidate(file.uuid)" type="is-danger">INVALIDA</b-button>
                 </div>
               </div>
             </div>
@@ -35,8 +35,8 @@
       </div>
     </div>
     <div v-if="!isUnlocked" style="padding:20vh 0; text-align:center;">
-      Unlock your wallet first.<br><br>
-      <b-button v-on:click="loadDbfromSpace" type="is-primary">UNLOCK</b-button>
+      Sblocca il wallet prima.<br><br>
+      <b-button v-on:click="loadDbfromSpace" type="is-primary">SBLOCCA</b-button>
     </div>
   </div>  
 </template>
@@ -99,7 +99,7 @@
           let data = written.data[i]
           data.data.message = JSON.parse(data.data.message)
           let signed = data.data
-          let check = await app.scrypta.verifyMessage(signed.pubKey, signed.signature, JSON.stringify(signed.message))
+          let check = await app.scrypta.verifyMessage(signed.pubkey, signed.signature, JSON.stringify(signed.message))
           if(check !== false && signed.address === app.address){
             try{
               app.s3filekeys[data.uuid] = app.scan + '/' + signed.message.file
@@ -122,7 +122,7 @@
         const app = this
         return new Promise( response => {
           app.$buefy.dialog.prompt({
-            message: `Enter wallet password`,
+            message: `Sblocca il wallet per accedere al database`,
             inputAttrs: {
               type: "password"
             },

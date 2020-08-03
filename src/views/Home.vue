@@ -3,30 +3,30 @@
     <div v-if="isUnlocked">
       <div v-if="!createKey">
         <h1>
-          Space folders
-          <b-button style="float:right" type="is-primary" size="is-small" v-on:click="showCreateModal">NEW</b-button>
+          Utenti
+          <b-button style="float:right" type="is-primary" size="is-small" v-on:click="showCreateModal">NUOVO</b-button>
         </h1><br>
         <b-table :data="db">
           <template slot-scope="props">
-            <b-table-column field="address" label="Lyra address">
+            <b-table-column field="address" label="Indirizzo Scrypta">
               {{ props.row.address }}
             </b-table-column>
-            <b-table-column field="identifier" label="Identifier">
+            <b-table-column field="identifier" label="Identificativo">
               {{ props.row.identifier }}
             </b-table-column>
             <b-table-column field="pin" label="PIN">
               {{ props.row.pin }}
             </b-table-column>
-            <b-table-column field="actions" label="Actions" width="150">
-              <b-button v-on:click="showEditModal(props.index)" type="is-primary" style="margin: 0 2px" size="is-small">EDIT</b-button>
-              <a target="_blank" :href="'/#/scan/'+props.row.address"><b-button type="is-success" style="margin: 0 2px" size="is-small">SCAN</b-button></a>
+            <b-table-column field="actions" label="Azioni" width="220">
+              <b-button v-on:click="showEditModal(props.index)" type="is-primary" style="margin: 0 2px" size="is-small">MODIFICA</b-button>
+              <a target="_blank" :href="'/#/scan/'+props.row.address"><b-button type="is-success" style="margin: 0 2px" size="is-small">VISUALIZZA</b-button></a>
             </b-table-column>
           </template>
         </b-table>
         <b-modal :active.sync="showCreate" has-modal-card trap-focus :destroy-on-hide="true" aria-role="dialog" aria-modal>
           <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
-                <p class="modal-card-title">New user</p>
+                <p class="modal-card-title">Nuovo utente</p>
             </header>
             <section class="modal-card-body">
               <b-field label="Identifier">
@@ -52,11 +52,11 @@
         <b-modal :active.sync="showEdit" has-modal-card trap-focus :destroy-on-hide="true" aria-role="dialog" aria-modal>
           <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
-                <p class="modal-card-title">Edit folder</p>
+                <p class="modal-card-title">Modifica utente</p>
             </header>
             <vue-qrcode v-if="qrvisible" :value="user.sid" />
             <section v-if="!qrvisible" class="modal-card-body">
-              <b-field label="Identifier">
+              <b-field label="Nome e Cognome">
                   <b-input
                       type="text"
                       v-model="user.identifier"
@@ -72,12 +72,12 @@
               </b-field>
             </section>
             <div style="padding:0px 20px 20px 20px; background:#fff">
-              <button class="button is-success" v-on:click="showQR" v-if="!qrvisible" style="width:100%">SHOW QR</button>
-              <button class="button is-success" v-on:click="hideQR" v-if="qrvisible" style="width:100%">HIDE QR</button>
+              <button class="button is-success" v-on:click="showQR" v-if="!qrvisible" style="width:100%">VISUALIZZA CARD</button>
+              <button class="button is-success" v-on:click="hideQR" v-if="qrvisible" style="width:100%">NASCONDI CARD</button>
             </div>
             <footer class="modal-card-foot">
-              <button class="button is-primary" v-on:click="edit" style="width:100%">EDIT</button>
-              <button class="button is-danger" v-on:click="remove" style="width:100%">DELETE</button>
+              <button class="button is-primary" v-on:click="edit" style="width:100%">MODIFICA</button>
+              <button class="button is-danger" v-on:click="remove" style="width:100%">ELIMINA</button>
             </footer>
           </div>
         </b-modal>
@@ -101,8 +101,8 @@
       </div>
     </div>
     <div v-if="!isUnlocked" style="padding:20vh 0; text-align:center;">
-      Unlock your wallet first.<br><br>
-      <b-button v-on:click="loadDbfromSpace" type="is-primary">UNLOCK</b-button>
+      Sblocca il wallet prima.<br><br>
+      <b-button v-on:click="loadDbfromSpace" type="is-primary">SBLOCCA</b-button>
     </div>
   </div>
 </template>
@@ -185,7 +185,7 @@
       loadDbfromSpace() {
         const app = this
         app.$buefy.dialog.prompt({
-            message: `Enter wallet password`,
+            message: `Sblocca il wallet per accedere al database`,
             inputAttrs: {
               type: "password"
             },

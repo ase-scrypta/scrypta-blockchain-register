@@ -4,13 +4,13 @@
       <b-navbar>
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
-            <img src="/logo.png" style="margin-right:15px" /> <b>Register Manager</b>
+            <img src="/logo.png" style="margin-right:15px" /> <b>ASE Blockchain Manager</b>
           </b-navbar-item>
         </template>
         
         <template slot="start">
-          <b-navbar-item href="/#/">Folders</b-navbar-item>
-          <b-navbar-item href="/#/notarize">Notarize</b-navbar-item>
+          <b-navbar-item href="/#/">Utenti</b-navbar-item>
+          <b-navbar-item href="/#/notarize">Notarizza</b-navbar-item>
         </template>
 
         <template slot="end">

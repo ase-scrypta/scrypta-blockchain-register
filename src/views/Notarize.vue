@@ -2,13 +2,13 @@
   <div style="text-align:left; padding: 20px">
     <div v-if="isUnlocked">
       <h1>
-        Notarize document
+        Inserisci documento in archivio
       </h1><br>
       <b-field label="Select folder">
-        <model-select :options="options" v-model="selected" placeholder="Select folder"></model-select>
+        <model-select :options="options" v-model="selected" placeholder="Seleziona utente"></model-select>
       </b-field>
       <b-field label="Select file visibility">
-        <model-select :options="options_visibility" v-model="visibility" placeholder="Select file visibility"></model-select>
+        <model-select :options="options_visibility" v-model="visibility" placeholder="Seleziona visibilità"></model-select>
       </b-field>
       <b-field label="Insert title">
         <b-input v-model="title"></b-input>
@@ -17,7 +17,7 @@
         <b-upload v-model="file" v-if="!fileHash && selected" drag-drop>
           <section class="section">
             <div class="content has-text-centered">
-              <p>Release file here o click to select from computer.</p>
+              <p>Rilascia il file qui o clicca per selezionare.</p>
             </div>
           </section>
         </b-upload>
@@ -34,14 +34,14 @@
         </div>
       </div>
       <div v-if="fileHash" style="padding:20px; text-align:center;">
-        File hash is: <b>{{ fileHash }}</b>
+        L'hash del file è: <b>{{ fileHash }}</b>
       </div><br>
-      <b-button v-on:click="writeData" v-if="!fileHash && !isWriting && !isUploading" type="is-primary" expanded size="is-large">WRITE DOCUMENT</b-button>
+      <b-button v-on:click="writeData" v-if="!fileHash && !isWriting && !isUploading" type="is-primary" expanded size="is-large">INSERISCI DOCUMENTO</b-button>
       <div v-if="isWriting" style="padding:20px; text-align:center;">Writing document in the blockchain..</div>
     </div>
     <div v-if="!isUnlocked" style="padding:20vh 0; text-align:center;">
-      Unlock your wallet first.<br><br>
-      <b-button v-on:click="loadDbfromSpace" type="is-primary">UNLOCK</b-button>
+      Sblocca il wallet prima.<br><br>
+      <b-button v-on:click="loadDbfromSpace" type="is-primary">SBLOCCA</b-button>
     </div>
   </div>
 </template>
@@ -107,7 +107,7 @@
       loadDbfromSpace() {
         const app = this
         app.$buefy.dialog.prompt({
-            message: `Enter wallet password`,
+            message: `Sblocca il wallet per accedere al database`,
             inputAttrs: {
               type: "password"
             },
