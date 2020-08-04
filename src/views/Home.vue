@@ -8,11 +8,11 @@
         </h1><br>
         <b-table :data="db">
           <template slot-scope="props">
-            <b-table-column field="address" label="Indirizzo Scrypta">
-              {{ props.row.address }}
-            </b-table-column>
             <b-table-column field="identifier" label="Identificativo">
               {{ props.row.identifier }}
+            </b-table-column>
+            <b-table-column field="address" label="Indirizzo Scrypta">
+              {{ props.row.address }}
             </b-table-column>
             <b-table-column field="pin" label="PIN">
               {{ props.row.pin }}
@@ -50,11 +50,14 @@
           </div>
         </b-modal>
         <b-modal :active.sync="showEdit" has-modal-card trap-focus :destroy-on-hide="true" aria-role="dialog" aria-modal>
-          <div class="modal-card" style="width: auto">
+          <div class="modal-card" style="width: 500px">
             <header class="modal-card-head">
-                <p class="modal-card-title">Modifica utente</p>
+              <p class="modal-card-title">Modifica utente</p>
             </header>
-            <vue-qrcode v-if="qrvisible" :value="user.sid" />
+            <div v-if="qrvisible" style="position:relative; padding:20px; background:#fff;">
+              <img src="/card.png" width="100%">
+              <vue-qrcode :value="user.sid" style="position:absolute; top:53px; left:58px; border-radius:10px; width:200px; height:200px" />
+            </div>
             <section v-if="!qrvisible" class="modal-card-body">
               <b-field label="Nome e Cognome">
                   <b-input
