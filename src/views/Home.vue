@@ -196,7 +196,6 @@
             onConfirm: async password => {
               let key = await app.scrypta.readKey(password, app.wallet.wallet);
               if (key !== false) {
-                console.log(key)
                 app.isUnlocked = true
                 if(key.do !== undefined){
                   aws.config.update({
@@ -415,7 +414,6 @@
               let key = await app.scrypta.readKey(password, app.wallet.wallet);
               if (key !== false) {
                 key.do = app.digitalocean
-                console.log(key)
                 let newwallet = await app.scrypta.buildWallet(password, app.address, key, true)
                 var a = document.getElementById("downloadsid");
                 var file = new Blob(
